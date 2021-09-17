@@ -1,16 +1,14 @@
-FROM python:3-slim
+FROM python:3-slim AS builder
+ADD . /app
+WORKDIR /app
 
-RUN useradd -m worker
-USER worker
+# We are installing a dependency here directly into our app source dir
+RUN pip install --target=/app requests
 
-COPY --chown=worker:worker . /home/worker/app
-WORKDIR /home/worker/app
-
-RUN pip install --upgrade pip
-RUN pip install --user requests
-
-ENV PATH="/home/worker/.local/bin:${PATH}"
-
-
-ENV PYTHONPATH /home/worker/app
-CMD ["/home/worker/app/main.py"]
+# A distroless container image with Python and some basics like SSL certificates
+# https://github.com/GoogleContainerTools/distroless
+FROM gcr.io/distroless/python3-debian10
+COPY --from=builder /app /app
+WORKDIR /app
+ENV PYTHONPATH /app
+CMD ["/app/main.py"]
