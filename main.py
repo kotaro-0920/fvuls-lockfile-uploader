@@ -43,6 +43,7 @@ def create_request(method, endpoint, params={}, data={}):
         print(e)
         return exit(1)
 
+
 def main():
     servers_res = create_request(
         'GET',
