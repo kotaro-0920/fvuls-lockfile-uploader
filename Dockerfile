@@ -15,4 +15,4 @@ ENV PATH="/home/worker/.local/bin:${PATH}"
 
 
 ENV PYTHONPATH /home/worker/app
-CMD ["/app/main.py"]
+CMD ["/home/worker/app/main.py"]
