@@ -8,8 +8,6 @@ FVULS_SERVER_UUID = os.environ['FVULS_SERVER_UUID']
 FVULS_LOCKFILE_PATH = os.environ['FVULS_LOCKFILE_PATH']
 FILE_CONTENT = ""
 
-print(os.environ)
-
 
 def create_request(method, endpoint, params={}, data={}):
     try:
@@ -21,7 +19,6 @@ def create_request(method, endpoint, params={}, data={}):
         if method == 'POST' or method == 'PUT':
             # merge two headers
             headers.update({'Content-Type': 'application/json'})
-            print(headers)
             res = requests.request(
                 method,
                 url=f'{FVULS_BASE_URL}/{endpoint}',
