@@ -1,11 +1,13 @@
 import os
 import requests
 
+
 FVULS_BASE_URL = os.environ['FVULS_BASE_URL']
 FVULS_TOKEN = os.environ['FVULS_TOKEN']
 FVULS_SERVER_UUID = os.environ['FVULS_SERVER_UUID']
 FVULS_LOCKFILE_PATH = os.environ['FVULS_LOCKFILE_PATH']
 FILE_CONTENT = ""
+
 
 def create_request(method, endpoint, params={}, data={}):
     try:
