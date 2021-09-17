@@ -20,7 +20,8 @@ def create_request(method, endpoint, params={}, data={}):
 
         if method == 'POST' or method == 'PUT':
             # merge two headers
-            headers = headers.update({'Content-Type': 'application/json'})
+            headers.update({'Content-Type': 'application/json'})
+            print(headers)
             res = requests.request(
                 method,
                 url=f'{FVULS_BASE_URL}/{endpoint}',
