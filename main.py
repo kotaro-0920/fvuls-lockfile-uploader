@@ -79,7 +79,11 @@ def main():
                 'path': FVULS_LOCKFILE_PATH,
             }
 
-            post_res = create_request('PUT', f'v1/lockfile/{lockfile_id}', data=payload)
+            post_res = create_request(
+                'PUT',
+                f'v1/lockfile/{lockfile_id}',
+                data=payload
+            )
 
             if post_res['id']:
                 print(f'Updated lockfile: {lockfile_id}')
