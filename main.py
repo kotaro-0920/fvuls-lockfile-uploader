@@ -20,7 +20,8 @@ def create_request(method, endpoint, params={}, data={}):
         if method == 'POST' or method == 'PUT':
             # override path if reponame exists
             if REPO_NAME is not None:
-                data['path'] = os.path.join(REPO_NAME, FVULS_LOCKFILE_PATH)
+                join = os.path.join(REPO_NAME, FVULS_LOCKFILE_PATH)
+                data['path'] = os.path.normpath(join)
             else:
                 data['path'] = FVULS_LOCKFILE_PATH,
 
@@ -37,8 +38,8 @@ def create_request(method, endpoint, params={}, data={}):
             ).json()
         else:
             if REPO_NAME and 'filterPath' in params:
-                params['filterPath'] = os.path.join(REPO_NAME,
-                                                    FVULS_LOCKFILE_PATH)
+                join = os.path.join(REPO_NAME, FVULS_LOCKFILE_PATH)
+                params['filterPath'] = os.path.normpath(join)
 
             res = requests.request(
                 method,
