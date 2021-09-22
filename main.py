@@ -1,12 +1,14 @@
 import os
 import requests
 
-
 FVULS_BASE_URL = os.environ['FVULS_BASE_URL']
 FVULS_TOKEN = os.environ['FVULS_TOKEN']
 FVULS_SERVER_UUID = os.environ['FVULS_SERVER_UUID']
 FVULS_LOCKFILE_PATH = os.environ['FVULS_LOCKFILE_PATH']
 
+# Read inputs
+
+REPO_NAME = os.getenv("INPUT_REPO_NAME", None)
 
 def create_request(method, endpoint, params={}, data={}):
     try:
@@ -83,6 +85,11 @@ def main():
                 'path': FVULS_LOCKFILE_PATH,
             }
 
+            if REPO_NAME is not None:
+                payload['path'] = os.path.join(REPO_NAME, FVULS_LOCKFILE_PATH)
+
+            print(payload)
+
             post_res = create_request(
                 'PUT',
                 f'v1/lockfile/{lockfile_id}',
@@ -103,6 +110,11 @@ def main():
                 'path': FVULS_LOCKFILE_PATH,
                 'serverID': server_id,
             }
+
+            if REPO_NAME is not None:
+                payload['path'] = os.path.join(REPO_NAME, FVULS_LOCKFILE_PATH)
+
+            print(payload)
 
             post_res = create_request('POST', 'v1/lockfile', data=payload)
             lockfile_id = post_res['id']

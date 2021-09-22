@@ -1,13 +1,14 @@
-name: "Python Container Action Template"
-description: "Get started with Python Container actions"
-author: "Jacob Tomlinson"
+name: "Post lockfile to future-vuls"
+description: "Use this action to automatically create a lockfile in future-vuls."
+author: "Marcelo (qwexvf)"
 inputs:
-  myInput:
-    description: "Input to use"
-    default: "world"
+  repoName:
+    description: "Optional repoName"
+    required: false
+    default: '1'
 outputs:
-  myOutput:
-    description: "Output from the action"
+  pathString:
+    description: "Gets full pathString result from the action"
 runs:
   using: "docker"
   image: "Dockerfile"
