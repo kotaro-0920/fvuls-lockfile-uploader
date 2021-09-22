@@ -3,12 +3,8 @@ description: "Use this action to automatically create a lockfile in future-vuls.
 author: "Marcelo (qwexvf)"
 inputs:
   repoName:
-    description: "Optional repoName"
+    description: "Adds a custom prefix the the beginning of the path."
     required: false
-    default: '1'
-outputs:
-  pathString:
-    description: "Gets full pathString result from the action"
 runs:
   using: "docker"
   image: "Dockerfile"
