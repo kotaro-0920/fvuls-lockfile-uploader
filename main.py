@@ -5,7 +5,7 @@ import validators
 FVULS_BASE_URL = os.getenv('FVULS_BASE_URL', 'https://rest.vuls.biz')
 FVULS_TOKEN = os.environ['FVULS_TOKEN']
 FVULS_SERVER_UUID = os.environ['FVULS_SERVER_UUID']
-FVULS_LOCKFILE_PATH = os.environ['FVULS_LOCKFILE_PATH']
+FVULS_LOCKFILE_PATH = os.getenv('INPUT_PATH', None)
 # Read inputs
 REPO_NAME = os.getenv('INPUT_REPONAME', None)
 
@@ -16,6 +16,10 @@ def create_request(method, endpoint, params={}, data={}):
             'Authorization': FVULS_TOKEN,
             'Accept': 'application/json'
         }
+
+        if FVULS_LOCKFILE_PATH is None:
+            print("You have to specify path")
+            return exit(1)
 
         if method == 'POST' or method == 'PUT':
             # override path if reponame exists

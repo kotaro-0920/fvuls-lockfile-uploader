@@ -5,6 +5,9 @@ inputs:
   repoName:
     description: "Adds a custom prefix the the beginning of the path."
     required: false
+  path:
+    description: "Specify path param for a specific lockfile"
+    required: true
 runs:
   using: "docker"
   image: "Dockerfile"
