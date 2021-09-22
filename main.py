@@ -23,29 +23,29 @@ def create_request(method, endpoint, params={}, data={}):
             if REPO_NAME is not None:
                 is_url = validators.url(REPO_NAME)
                 if is_url:
-                    """
-                        Checks if REPO_NAME is a valid url
-                        The example below will post "https://github.com/orgName/repoName/go.sum"
+                    """ Checks if REPO_NAME is a valid url
+                    The example below will post
+                        "https://github.com/orgName/repoName/go.sum"
 
-                        ```yaml
-                        with:
-                          repoName: https://github.com/${{ github.repository }} 
-                        env:
-                          FVULS_LOCKFILE_PATH: "./go.sum"
-                        ```
+                    ```yaml
+                    with:
+                      repoName: https://github.com/${{github.repository}} 
+                    env:
+                      FVULS_LOCKFILE_PATH: "./go.sum"
+                    ```
                     """
                     normalize_lockfile_path = os.path.normpath(FVULS_LOCKFILE_PATH)
                     data['path'] = REPO_NAME + normalize_lockfile_path
                 else:
-                    """
-                        ```yaml
-                        with:
-                          repoName: ${{ github.repository }} 
-                        env:
-                          FVULS_LOCKFILE_PATH: "./go.sum"
-                        ```
+                    """ Example with a normal path:
+                    ```yaml
+                    with:
+                      repoName: ${{ github.repository }} 
+                    env:
+                      FVULS_LOCKFILE_PATH: "./go.sum"
+                    ```
 
-                        This will results: orgName/repoName/go.sum
+                    This will results: orgName/repoName/go.sum
                     """
                     join = os.path.join(REPO_NAME, FVULS_LOCKFILE_PATH)
                     data['path'] = os.path.normpath(join)
