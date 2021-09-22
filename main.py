@@ -37,7 +37,8 @@ def create_request(method, endpoint, params={}, data={}):
             ).json()
         else:
             if REPO_NAME and 'filterPath' in params:
-                params['filterPath'] = os.path.join(REPO_NAME, FVULS_LOCKFILE_PATH)
+                params['filterPath'] = os.path.join(REPO_NAME,
+                                                    FVULS_LOCKFILE_PATH)
 
             res = requests.request(
                 method,
