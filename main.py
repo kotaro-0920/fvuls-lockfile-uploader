@@ -6,7 +6,6 @@ FVULS_BASE_URL = os.environ['FVULS_BASE_URL']
 FVULS_TOKEN = os.environ['FVULS_TOKEN']
 FVULS_SERVER_UUID = os.environ['FVULS_SERVER_UUID']
 FVULS_LOCKFILE_PATH = os.environ['FVULS_LOCKFILE_PATH']
-FILE_CONTENT = ""
 
 
 def create_request(method, endpoint, params={}, data={}):
@@ -67,13 +66,17 @@ def main():
             }
         )
 
+        FILE_CONTENT = ""
+
         # check if list is not empty
         if 'lockfiles' in lockfiles_res:
             # updates lockfile
             lockfile_id = lockfiles_res['lockfiles'][0]['id']
+
             # read lockfile content
             with open(FVULS_LOCKFILE_PATH, 'r') as file:
                 FILE_CONTENT = file.read()
+                print(FILE_CONTENT)
 
             payload = {
                 'fileContent': FILE_CONTENT,
@@ -93,6 +96,7 @@ def main():
             # read lockfile content
             with open(FVULS_LOCKFILE_PATH, 'r') as file:
                 FILE_CONTENT = file.read()
+                print(FILE_CONTENT)
 
             payload = {
                 'fileContent': FILE_CONTENT,
