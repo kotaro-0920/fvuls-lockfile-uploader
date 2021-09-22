@@ -23,8 +23,8 @@ def create_request(method, endpoint, params={}, data={}):
             if REPO_NAME is not None:
                 is_url = validators.url(REPO_NAME)
                 if is_url:
-                    normalize_lockfile_path = os.path.normpath(FVULS_LOCKFILE_PATH)
-                    data['path'] = REPO_NAME + normalize_lockfile_path
+                    normalize_path = os.path.normpath(FVULS_LOCKFILE_PATH)
+                    data['path'] = REPO_NAME + normalize_path
                 else:
                     join = os.path.join(REPO_NAME, FVULS_LOCKFILE_PATH)
                     data['path'] = os.path.normpath(join)
