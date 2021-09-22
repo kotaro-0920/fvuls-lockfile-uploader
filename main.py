@@ -7,10 +7,7 @@ FVULS_TOKEN = os.environ['FVULS_TOKEN']
 FVULS_SERVER_UUID = os.environ['FVULS_SERVER_UUID']
 FVULS_LOCKFILE_PATH = os.environ['FVULS_LOCKFILE_PATH']
 # Read inputs
-REPO_NAME = os.getenv("INPUT_REPO_NAME", None)
-
-
-print(os.environ)
+REPO_NAME = os.getenv("INPUT_REPONAME", None)
 
 
 def create_request(method, endpoint, params={}, data={}):
