@@ -78,7 +78,6 @@ def main():
             # read lockfile content
             with open(FVULS_LOCKFILE_PATH, 'r') as file:
                 FILE_CONTENT = file.read()
-                print(FILE_CONTENT)
 
             payload = {
                 'fileContent': FILE_CONTENT,
@@ -87,8 +86,6 @@ def main():
 
             if REPO_NAME is not None:
                 payload['path'] = os.path.join(REPO_NAME, FVULS_LOCKFILE_PATH)
-
-            print(payload)
 
             post_res = create_request(
                 'PUT',
@@ -103,7 +100,6 @@ def main():
             # read lockfile content
             with open(FVULS_LOCKFILE_PATH, 'r') as file:
                 FILE_CONTENT = file.read()
-                print(FILE_CONTENT)
 
             payload = {
                 'fileContent': FILE_CONTENT,
@@ -113,8 +109,6 @@ def main():
 
             if REPO_NAME is not None:
                 payload['path'] = os.path.join(REPO_NAME, FVULS_LOCKFILE_PATH)
-
-            print(payload)
 
             post_res = create_request('POST', 'v1/lockfile', data=payload)
             lockfile_id = post_res['id']
