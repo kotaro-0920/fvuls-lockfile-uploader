@@ -11,9 +11,10 @@ REPO_NAME = os.getenv('INPUT_REPONAME', None)
 
 
 def create_request(method, endpoint, params={}, data={}):
-    """ Checks if REPO_NAME is a valid url
+    """
+    Checks if REPO_NAME is a valid url
     The example below will post
-    "https://github.com/orgName/repoName/go.sum"
+        'https://github.com/orgName/repoName/go.sum'
 
     ```yaml
     with:
