@@ -10,6 +10,9 @@ FVULS_LOCKFILE_PATH = os.environ['FVULS_LOCKFILE_PATH']
 REPO_NAME = os.getenv("INPUT_REPO_NAME", None)
 
 
+print(os.environ)
+
+
 def create_request(method, endpoint, params={}, data={}):
     try:
         headers = {
