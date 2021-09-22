@@ -7,8 +7,7 @@ FVULS_TOKEN = os.environ['FVULS_TOKEN']
 FVULS_SERVER_UUID = os.environ['FVULS_SERVER_UUID']
 FVULS_LOCKFILE_PATH = os.environ['FVULS_LOCKFILE_PATH']
 # Read inputs
-REPO_NAME = os.getenv("INPUT_REPONAME", None)
-
+REPO_NAME = os.getenv('INPUT_REPONAME', None)
 
 def create_request(method, endpoint, params={}, data={}):
     try:
@@ -18,7 +17,16 @@ def create_request(method, endpoint, params={}, data={}):
         }
 
         if method == 'POST' or method == 'PUT':
-            # merge two headers
+            # override path if reponame exists
+            if REPO_NAME is not None:
+                data['path'] = os.path.join(REPO_NAME, FVULS_LOCKFILE_PATH)
+            else:
+                data['path'] = FVULS_LOCKFILE_PATH,
+
+            # read lockfile content
+            with open(FVULS_LOCKFILE_PATH, 'r') as file:
+                data['fileContent'] = file.read()
+
             headers.update({'Content-Type': 'application/json'})
             res = requests.request(
                 method,
@@ -68,53 +76,25 @@ def main():
             }
         )
 
-        FILE_CONTENT = ""
-
         # check if list is not empty
         if 'lockfiles' in lockfiles_res:
             # updates lockfile
             lockfile_id = lockfiles_res['lockfiles'][0]['id']
 
-            # read lockfile content
-            with open(FVULS_LOCKFILE_PATH, 'r') as file:
-                FILE_CONTENT = file.read()
-
-            payload = {
-                'fileContent': FILE_CONTENT,
-                'path': FVULS_LOCKFILE_PATH,
-            }
-
-            if REPO_NAME is not None:
-                payload['path'] = os.path.join(REPO_NAME, FVULS_LOCKFILE_PATH)
-
             post_res = create_request(
                 'PUT',
                 f'v1/lockfile/{lockfile_id}',
-                data=payload
             )
 
             if post_res['id']:
                 print(f'Updated lockfile: {lockfile_id}')
                 return exit(0)
         else:
-            # read lockfile content
-            with open(FVULS_LOCKFILE_PATH, 'r') as file:
-                FILE_CONTENT = file.read()
-
-            payload = {
-                'fileContent': FILE_CONTENT,
-                'path': FVULS_LOCKFILE_PATH,
-                'serverID': server_id,
-            }
-
-            if REPO_NAME is not None:
-                payload['path'] = os.path.join(REPO_NAME, FVULS_LOCKFILE_PATH)
-
+            payload = {'serverID': server_id}
             post_res = create_request('POST', 'v1/lockfile', data=payload)
-            lockfile_id = post_res['id']
 
-            if lockfile_id:
-                print(f'Created lockfile: {lockfile_id}')
+            if post_res['id']:
+                print(f'Created lockfile: {post_res["id"]}')
                 return exit(0)
 
 
