@@ -66,3 +66,15 @@ jobs:
           path: './web/yarn.lock'
 
 ```
+
+You can use `main.py` from command line with all required environments like below.
+
+```bash
+export FVULS_BASE_URL="https://rest.vuls.biz"
+export FVULS_SERVER_UUID="CHANGE ME"
+export FVULS_TOKEN="CHANGE ME"
+export INPUT_REPONAME="CHANGE ME"
+export INPUT_PATH="./go.sum"
+
+./main.py
+```
