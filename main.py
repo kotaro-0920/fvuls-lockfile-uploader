@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import os
 import requests
 import validators
@@ -9,6 +11,12 @@ FVULS_LOCKFILE_PATH = os.getenv('INPUT_PATH', None)
 # Read inputs
 REPO_NAME = os.getenv('INPUT_REPONAME', None)
 
+
+print(REPO_NAME)
+print(FVULS_BASE_URL)
+print(FVULS_TOKEN)
+print(FVULS_SERVER_UUID)
+print(FVULS_LOCKFILE_PATH)
 
 def create_request(method, endpoint, params={}, data={}):
     try:
