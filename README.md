@@ -55,12 +55,12 @@ jobs:
         with:
           fetch-depth: 0
       - name: Upload go.sum
-        uses: futurevuls/fvuls-lockfile-uploader@main 
+        uses: futurevuls/fvuls-lockfile-uploader@v1 
         with:
           repoName: ${{ github.repository }}
           path: './go.sum'
       - name: Upload web/yarn.lock
-        uses: futurevuls/fvuls-lockfile-uploader@main 
+        uses: futurevuls/fvuls-lockfile-uploader@v1 
         with:
           repoName: ${{ github.repository }}
           path: './web/yarn.lock'
