@@ -1,8 +1,9 @@
-FROM python:3.10-slim AS builder
+FROM python:3.10-slim
+
 WORKDIR /app
 COPY . /app
 
-RUN pip install --no-cache-dir -r requirements.txt
+# もしrequests, validatorsを入れたいなら
+RUN pip install --no-cache-dir requests validators
 
 CMD ["python", "/app/main.py"]
-
