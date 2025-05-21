@@ -1,18 +1,8 @@
 FROM python:3.10-slim AS builder
-ADD . /app
 WORKDIR /app
+COPY . /app
 
-# We are installing a dependency here directly into our app source dir
-RUN python -m venv /venv && \
-    /venv/bin/pip install --upgrade pip && \
-    /venv/bin/pip install requests validators
+RUN pip install --no-cache-dir -r requirements.txt
 
+CMD ["python", "/app/main.py"]
 
-FROM gcr.io/distroless/python3-debian10
-COPY --from=builder /venv /venv
-COPY --from=builder /app /app
-WORKDIR /app
-
-# デフォルトPythonにvenvを使わせる
-ENV PYTHONHOME=/venv
-CMD ["/venv/bin/python", "/app/main.py"]
