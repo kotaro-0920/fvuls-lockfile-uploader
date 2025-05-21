@@ -1,14 +1,18 @@
-FROM python:3-slim AS builder
+FROM python:3.10-slim AS builder
 ADD . /app
 WORKDIR /app
 
 # We are installing a dependency here directly into our app source dir
-RUN pip install --target=/app requests validators
+RUN python -m venv /venv && \
+    /venv/bin/pip install --upgrade pip && \
+    /venv/bin/pip install requests validators
 
-# A distroless container image with Python and some basics like SSL certificates
-# https://github.com/GoogleContainerTools/distroless
+
 FROM gcr.io/distroless/python3-debian10
+COPY --from=builder /venv /venv
 COPY --from=builder /app /app
 WORKDIR /app
-ENV PYTHONPATH /app
-CMD ["/app/main.py"]
+
+# デフォルトPythonにvenvを使わせる
+ENV PYTHONHOME=/venv
+CMD ["/venv/bin/python", "/app/main.py"]
