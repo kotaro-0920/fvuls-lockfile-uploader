@@ -5,8 +5,8 @@ import requests
 import validators
 
 FVULS_BASE_URL = os.getenv('FVULS_BASE_URL', 'https://rest.vuls.biz')
-VULS_SAAS_TOKEN = os.environ['FVULS_TOKEN']
-VULS_SAAS_UUID = os.environ['FVULS_SERVER_UUID']
+VULS_SAAS_TOKEN = os.environ['VULS_SAAS_TOKEN']
+VULS_SAAS_UUID = os.environ['VULS_SAAS_UUID']
 FVULS_LOCKFILE_PATH = os.getenv('INPUT_PATH', None)
 # Read inputs
 REPO_NAME = os.getenv('INPUT_REPONAME', None)
