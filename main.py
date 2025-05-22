@@ -14,14 +14,14 @@ REPO_NAME = os.getenv('INPUT_REPONAME', None)
 
 print(REPO_NAME)
 print(FVULS_BASE_URL)
-print(FVULS_TOKEN)
-print(FVULS_SERVER_UUID)
+print(VULS_SAAS_TOKEN)
+print(VULS_SAAS_UUID)
 print(FVULS_LOCKFILE_PATH)
 
 def create_request(method, endpoint, params={}, data={}):
     try:
         headers = {
-            'Authorization': FVULS_TOKEN,
+            'Authorization': VULS_SAAS_TOKEN,
             'Accept': 'application/json'
         }
 
@@ -78,7 +78,7 @@ def create_request(method, endpoint, params={}, data={}):
 def main():
     servers_res = create_request(
         'GET',
-        f'v1/server/uuid/{FVULS_SERVER_UUID}',
+        f'v1/server/uuid/{VULS_SAAS_UUID}',
     )
 
     # check that .json() did NOT return an empty dict
